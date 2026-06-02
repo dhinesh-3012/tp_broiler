@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP Broilers - Fresh Chicken Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Tamil:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark: #1a3a0f;
+  --green-mid: #2d5a1b;
+  --green-light: #4a8a2a;
+  --green-pale: #d4edba;
+  --gold: #e8a020;
+  --gold-light: #f5c842;
+  --cream: #fdf8ee;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-mid: #3a3a3a;
+  --red-accent: #c0392b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--green-dark);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 60px;
+  border-bottom: 2px solid var(--gold);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+.nav-brand span { font-size: 1.6rem; }
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a {
+  color: var(--green-pale); font-size: 0.9rem;
+  text-decoration: none; letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-order-btn {
+  background: var(--gold); color: var(--green-dark);
+  padding: 8px 18px; border-radius: 50px;
+  font-weight: 500; font-size: 0.85rem;
+  text-decoration: none; transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.nav-order-btn:hover { background: var(--gold-light); transform: scale(1.04); }
+
+/* ── HERO ── */
+#hero {
+  background: var(--green-dark);
+  min-height: 88vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 3rem 2rem;
+}
+
+/* animated grass blades */
+.grass-container {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 120px; display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.blade {
+  position: absolute; bottom: 0;
+  width: 4px; border-radius: 4px 4px 0 0;
+  background: var(--green-light);
+  transform-origin: bottom center;
+  animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%,100% { transform: rotate(-6deg); }
+  50%      { transform: rotate(6deg); }
+}
+
+/* floating feathers */
+.feather {
+  position: absolute;
+  width: 8px; height: 22px;
+  background: var(--gold-light);
+  border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+  opacity: 0.3;
+  animation: floatFeather linear infinite;
+}
+@keyframes floatFeather {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.3; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+.hero-inner {
+  text-align: center; position: relative; z-index: 2;
+  animation: fadeUp 0.9s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--gold); color: var(--green-dark);
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 16px; border-radius: 50px;
+  margin-bottom: 1.2rem;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 0.3rem;
+  animation: fadeUp 0.9s 0.2s ease both;
+}
+.hero-title .gold { color: var(--gold-light); }
+
+.hero-tamil {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--green-pale);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.9s 0.3s ease both;
+}
+
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.9s 0.4s ease both;
+}
+.hero-tag {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(232,160,32,0.4);
+  color: var(--green-pale);
+  padding: 6px 16px; border-radius: 50px;
+  font-size: 0.85rem;
+}
+.hero-tag.highlight {
+  background: rgba(232,160,32,0.2);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 0.9s 0.5s ease both;
+}
+.btn-primary {
+  background: var(--gold); color: var(--green-dark);
+  padding: 13px 30px; border-radius: 50px;
+  font-weight: 500; font-size: 1rem;
+  text-decoration: none;
+  transition: transform 0.15s, background 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover { transform: scale(1.05); background: var(--gold-light); }
+.btn-secondary {
+  background: transparent; color: var(--green-pale);
+  padding: 13px 30px; border-radius: 50px;
+  font-weight: 400; font-size: 1rem;
+  text-decoration: none; border: 1px solid rgba(212,237,186,0.4);
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--green-pale); color: var(--white); }
+
+.hero-phone {
+  margin-top: 1.8rem;
+  color: var(--gold-light);
+  font-size: 1.1rem; letter-spacing: 1px;
+  animation: fadeUp 0.9s 0.6s ease both;
+}
+.hero-phone a { color: inherit; text-decoration: none; }
+.hero-phone a:hover { text-decoration: underline; }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  background: var(--gold);
+  display: flex; justify-content: center; gap: 0;
+  overflow: hidden;
+}
+.stat-item {
+  flex: 1; max-width: 200px;
+  text-align: center;
+  padding: 1.1rem 0.5rem;
+  border-right: 1px solid rgba(26,58,15,0.2);
+  animation: fadeUp 0.7s ease both;
+  color: var(--green-dark);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 900;
+}
+.stat-label { font-size: 0.75rem; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* ── SECTIONS ── */
+section { padding: 4rem 2rem; }
+.section-header { text-align: center; margin-bottom: 2.5rem; }
+.section-tag {
+  display: inline-block;
+  font-size: 0.7rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-light);
+  background: var(--green-pale);
+  padding: 4px 14px; border-radius: 50px;
+  margin-bottom: 0.7rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  color: var(--green-dark); font-weight: 700;
+  line-height: 1.2;
+}
+.section-sub { color: #666; margin-top: 0.5rem; font-size: 0.95rem; }
+
+/* ── MENU ── */
+#menu { background: var(--cream); }
+
+.menu-cats {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin-bottom: 2rem;
+}
+.cat-pill {
+  padding: 7px 20px; border-radius: 50px;
+  border: 1.5px solid var(--green-light);
+  background: transparent; color: var(--green-mid);
+  font-size: 0.85rem; cursor: pointer;
+  transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.cat-pill.active, .cat-pill:hover {
+  background: var(--green-dark); color: var(--gold-light);
+  border-color: var(--green-dark);
+}
+.cat-pill-tamil { font-family: 'Noto Sans Tamil', sans-serif; font-size: 0.8rem; }
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px; max-width: 1100px; margin: 0 auto;
+}
+.menu-card {
+  background: var(--white);
+  border: 1.5px solid #e0edd4;
+  border-radius: 16px;
+  padding: 1.2rem 1.3rem;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  cursor: default;
+  animation: cardPop 0.4s ease both;
+}
+@keyframes cardPop {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.menu-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--green-light);
+  box-shadow: 0 8px 24px rgba(45,90,27,0.12);
+}
+.menu-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.menu-name { font-weight: 500; font-size: 1rem; color: var(--green-dark); }
+.menu-name-tamil {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  font-size: 0.8rem; color: #888; margin-top: 2px;
+}
+.menu-badge {
+  font-size: 0.7rem; padding: 3px 10px; border-radius: 50px;
+  white-space: nowrap;
+}
+.badge-wholesale { background: #e8f4fd; color: #1a6a9a; }
+.badge-popular   { background: #fef3cd; color: #856404; }
+.badge-fresh     { background: #d4edda; color: #155724; }
+.menu-desc { font-size: 0.82rem; color: #777; line-height: 1.5; }
+.menu-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+.menu-price { font-size: 1.15rem; font-weight: 500; color: var(--green-mid); }
+.menu-price small { font-size: 0.7rem; color: #aaa; }
+.add-to-order {
+  background: var(--green-pale); color: var(--green-dark);
+  border: 1px solid var(--green-light); border-radius: 50px;
+  padding: 6px 14px; font-size: 0.8rem;
+  cursor: pointer; transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.add-to-order:hover  { background: var(--green-dark); color: var(--gold-light); border-color: var(--green-dark); }
+.add-to-order.added  { background: var(--green-dark); color: var(--gold-light); border-color: var(--green-dark); }
+
+/* ── ORDER ── */
+#order { background: #f0f7e8; }
+.order-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  max-width: 900px; margin: 0 auto;
+}
+@media (max-width: 680px) { .order-layout { grid-template-columns: 1fr; } }
+
+.order-card {
+  background: var(--white); border-radius: 20px;
+  border: 1.5px solid #d4edba;
+  padding: 1.6rem;
+}
+.order-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--green-dark);
+  margin-bottom: 1rem; padding-bottom: 0.7rem;
+  border-bottom: 1px solid #e0edd4;
+}
+
+.cart-empty { text-align: center; color: #aaa; padding: 2rem 0; font-size: 0.9rem; }
+
+.cart-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem;
+  animation: slideIn 0.25s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.cart-item:last-child { border-bottom: none; }
+.cart-item-name { color: var(--green-dark); }
+.cart-qty-ctrl { display: flex; align-items: center; gap: 8px; }
+.qty-btn {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid #d0d0d0; background: #f5f5f5;
+  cursor: pointer; font-size: 1rem; color: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.qty-btn:hover { background: var(--green-pale); }
+.cart-item-price { color: var(--green-mid); font-weight: 500; }
+
+.cart-total {
+  display: flex; justify-content: space-between;
+  font-weight: 500; font-size: 1.1rem;
+  padding: 12px 0 0; border-top: 2px solid var(--green-pale);
+  margin-top: 8px; color: var(--green-dark);
+}
+
+.form-group { margin-bottom: 1rem; }
+.form-group label { font-size: 0.82rem; color: #666; display: block; margin-bottom: 4px; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid #d4edba; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  background: var(--cream); color: var(--text-dark);
+  outline: none; transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--green-light); }
+.form-group textarea { height: 70px; resize: vertical; }
+.form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.submit-btn {
+  width: 100%; padding: 13px;
+  background: var(--green-dark); color: var(--gold-light);
+  border: none; border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 0.5rem;
+}
+.submit-btn:hover { background: var(--green-mid); transform: scale(1.02); }
+
+/* ── PRE-BOOKING ── */
+#prebooking { background: var(--cream); }
+.prebook-layout {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem;
+  max-width: 960px; margin: 0 auto;
+}
+@media (max-width: 720px) { .prebook-layout { grid-template-columns: 1fr; } }
+
+.prebook-info {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.prebook-highlight {
+  background: var(--green-dark); border-radius: 20px;
+  padding: 1.6rem; color: var(--white);
+}
+.prebook-highlight h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold-light); font-size: 1.15rem; margin-bottom: 0.5rem;
+}
+.prebook-highlight p { font-size: 0.88rem; color: var(--green-pale); line-height: 1.7; }
+.event-types {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.event-pill {
+  background: var(--white); border: 1.5px solid #e0edd4;
+  border-radius: 12px; padding: 10px 14px; text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: default;
+}
+.event-pill:hover { border-color: var(--green-light); background: #f5fbee; }
+.event-pill-icon { font-size: 1.4rem; margin-bottom: 4px; }
+.event-pill-name { font-size: 0.82rem; font-weight: 500; color: var(--green-dark); }
+.event-pill-sub  { font-size: 0.72rem; color: #888; margin-top: 2px; }
+
+.prebook-card {
+  background: var(--white); border-radius: 20px;
+  border: 1.5px solid #d4edba; padding: 1.8rem;
+}
+.prebook-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--green-dark);
+  margin-bottom: 1rem; padding-bottom: 0.7rem;
+  border-bottom: 1px solid #e0edd4;
+}
+.prebook-items { margin-bottom: 1rem; }
+.prebook-item-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.88rem;
+}
+.prebook-item-row:last-child { border-bottom: none; }
+.prebook-item-name { color: var(--green-dark); }
+.prebook-qty-ctrl { display: flex; align-items: center; gap: 8px; }
+.prebook-qty-btn {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid #d0d0d0; background: #f5f5f5;
+  cursor: pointer; font-size: 1rem; color: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.prebook-qty-btn:hover { background: var(--green-pale); }
+.prebook-item-unit { font-size: 0.75rem; color: #aaa; margin-left: 2px; }
+.prebook-summary {
+  background: #f0f7e8; border-radius: 12px;
+  padding: 10px 14px; margin-bottom: 1rem;
+  font-size: 0.85rem; color: var(--green-mid);
+  line-height: 1.8; min-height: 44px;
+}
+.prebook-submit {
+  width: 100%; padding: 13px;
+  background: var(--gold); color: var(--green-dark);
+  border: none; border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.5px;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  margin-top: 0.4rem;
+}
+.prebook-submit:hover { background: var(--gold-light); transform: scale(1.02); }
+.advance-note {
+  text-align: center; font-size: 0.78rem; color: #888; margin-top: 8px;
+}
+
+/* ── WHOLESALE ── */
+#wholesale { background: var(--green-dark); color: var(--white); }
+#wholesale .section-tag { background: rgba(232,160,32,0.2); color: var(--gold-light); }
+#wholesale .section-title { color: var(--gold-light); }
+#wholesale .section-sub { color: var(--green-pale); }
+.delivery-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px; max-width: 900px; margin: 0 auto;
+}
+.delivery-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(232,160,32,0.25);
+  border-radius: 14px; padding: 1.1rem 1.2rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.delivery-card:hover { background: rgba(232,160,32,0.12); border-color: var(--gold); }
+.delivery-card-title { font-weight: 500; font-size: 0.95rem; color: var(--gold-light); margin-bottom: 4px; }
+.delivery-card-sub { font-size: 0.8rem; color: var(--green-pale); }
+
+.branches-row {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; margin-top: 1.5rem;
+}
+.branch-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(212,237,186,0.3);
+  color: var(--green-pale);
+  padding: 6px 16px; border-radius: 50px; font-size: 0.85rem;
+}
+
+/* ── INFO ── */
+#info { background: var(--cream); }
+.info-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px; max-width: 900px; margin: 0 auto;
+}
+.info-card {
+  background: var(--white); border: 1.5px solid #e0edd4;
+  border-radius: 16px; padding: 1.3rem;
+  transition: box-shadow 0.2s;
+}
+.info-card:hover { box-shadow: 0 6px 20px rgba(45,90,27,0.1); }
+.info-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--green-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 10px;
+}
+.info-label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.info-value { font-size: 0.95rem; color: var(--green-dark); font-weight: 500; line-height: 1.6; }
+.info-value a { color: var(--green-mid); text-decoration: none; }
+.info-value a:hover { text-decoration: underline; }
+.open-tag {
+  display: inline-block; background: #d4edda; color: #155724;
+  font-size: 0.75rem; padding: 3px 10px; border-radius: 50px; margin-top: 6px;
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  background: var(--green-dark); color: var(--gold-light);
+  padding: 12px 20px; border-radius: 50px;
+  font-size: 0.9rem; border: 1px solid var(--gold);
+  transform: translateY(80px); opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── ADMIN PANEL ── */
+.admin-fab {
+  position: fixed; bottom: 24px; left: 24px; z-index: 998;
+  background: var(--green-dark); color: var(--gold-light);
+  border: 1.5px solid var(--gold); border-radius: 50px;
+  padding: 10px 18px; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'DM Sans', sans-serif;
+}
+.admin-fab:hover { background: var(--green-mid); transform: scale(1.04); }
+
+.admin-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.55);
+  align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.admin-overlay.open { display: flex; }
+
+.admin-modal {
+  background: var(--white); border-radius: 20px;
+  width: 100%; max-width: 560px;
+  max-height: 90vh; overflow-y: auto;
+  padding: 1.8rem;
+  animation: modalPop 0.25s ease;
+}
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.admin-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+  border-bottom: 1.5px solid #e0edd4;
+}
+.admin-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--green-dark);
+}
+.admin-close {
+  background: #f5f5f5; border: none; border-radius: 50%;
+  width: 32px; height: 32px; font-size: 1.1rem;
+  cursor: pointer; color: #555; display: flex;
+  align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.admin-close:hover { background: #ffe0e0; color: #c0392b; }
+
+.admin-login { text-align: center; padding: 1rem 0; }
+.admin-login p { font-size: 0.88rem; color: #666; margin-bottom: 1rem; }
+.admin-login input {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid #d4edba; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  background: var(--cream); outline: none; margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.admin-login input:focus { border-color: var(--green-light); }
+.admin-login-btn {
+  width: 100%; padding: 11px;
+  background: var(--green-dark); color: var(--gold-light);
+  border: none; border-radius: 50px;
+  font-size: 0.95rem; font-weight: 500; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+}
+.admin-login-btn:hover { background: var(--green-mid); }
+.admin-err { color: #c0392b; font-size: 0.82rem; margin-top: 6px; display: none; }
+
+.admin-date-strip {
+  background: #f0f7e8; border-radius: 10px;
+  padding: 8px 14px; margin-bottom: 1.2rem;
+  font-size: 0.82rem; color: var(--green-mid);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.admin-last-saved { font-size: 0.78rem; color: #888; }
+
+.price-row {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+}
+.price-row:last-child { border-bottom: none; }
+.price-row-info {}
+.price-row-name { font-size: 0.9rem; font-weight: 500; color: var(--green-dark); }
+.price-row-tamil { font-size: 0.75rem; color: #888; font-family: 'Noto Sans Tamil', sans-serif; }
+.price-input-wrap { display: flex; align-items: center; gap: 6px; }
+.price-input-wrap span { font-size: 0.9rem; color: var(--green-mid); font-weight: 500; }
+.price-input {
+  width: 80px; padding: 7px 10px; text-align: right;
+  border: 1.5px solid #d4edba; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  font-weight: 500; color: var(--green-dark);
+  background: var(--cream); outline: none;
+  transition: border-color 0.2s;
+}
+.price-input:focus { border-color: var(--green-light); }
+.price-input.changed { border-color: var(--gold); background: #fffbf0; }
+
+.admin-actions {
+  display: flex; gap: 10px; margin-top: 1.4rem; padding-top: 1rem;
+  border-top: 1.5px solid #e0edd4;
+}
+.save-btn {
+  flex: 1; padding: 12px;
+  background: var(--green-dark); color: var(--gold-light);
+  border: none; border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.save-btn:hover { background: var(--green-mid); transform: scale(1.02); }
+.reset-btn {
+  padding: 12px 20px;
+  background: transparent; color: #888;
+  border: 1.5px solid #ddd; border-radius: 50px;
+  font-size: 0.85rem; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.2s, color 0.2s;
+}
+.reset-btn:hover { border-color: #c0392b; color: #c0392b; }
+.logout-btn {
+  padding: 12px 16px;
+  background: transparent; color: #aaa;
+  border: 1.5px solid #eee; border-radius: 50px;
+  font-size: 0.82rem; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.logout-btn:hover { color: #666; border-color: #ccc; }
+
+.price-updated-badge {
+  display: inline-block; background: #d4edda; color: #155724;
+  font-size: 0.7rem; padding: 2px 8px; border-radius: 50px;
+  margin-left: 6px; vertical-align: middle;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--green-dark);
+  border-top: 2px solid var(--gold);
+  padding: 2rem;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; color: var(--gold-light); margin-bottom: 0.5rem;
+}
+.footer-sub { font-size: 0.82rem; color: var(--green-pale); }
+.footer-tamil { font-family: 'Noto Sans Tamil', sans-serif; font-size: 0.85rem; color: #6a9f4f; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><span>🐓</span> TP Broilers</div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#order">Order</a>
+    <a href="#prebooking">Pre-Book</a>
+    <a href="#wholesale">Wholesale</a>
+    <a href="#info">Info</a>
+  </div>
+  <a href="#order" class="nav-order-btn">Order Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- feathers -->
+  <div id="feathers"></div>
+  <!-- grass -->
+  <div class="grass-container" id="grass"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">Since 10 Years · Velankanni</div>
+    <h1 class="hero-title">TP <span class="gold">Broilers</span></h1>
+    <p class="hero-tamil">பிராய்லர்ஸ் · காடை · நாட்டுக்கோழி · முட்டை</p>
+    <div class="hero-tags">
+      <span class="hero-tag highlight">Broiler · பிராய்லர்</span>
+      <span class="hero-tag">Country Chicken · நாட்டுக்கோழி</span>
+      <span class="hero-tag highlight">Quail · காடை</span>
+      <span class="hero-tag">Eggs · முட்டை</span>
+      <span class="hero-tag highlight">Whole Sale Available</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#order" class="btn-primary">Place Order</a>
+      <a href="#menu"  class="btn-secondary">View Menu</a>
+    </div>
+    <p class="hero-phone">
+      📞 <a href="tel:334479905">9894675470</a> &nbsp;|&nbsp;
+      <a href="tel:338037213">6380372132</a>
+    </p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Branches</div></div>
+  <div class="stat-item"><div class="stat-num">Daily</div><div class="stat-label">Fresh Stock</div></div>
+  <div class="stat-item"><div class="stat-num">WS</div><div class="stat-label">Wholesale</div></div>
+  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Delivery Areas</div></div>
+  <div class="stat-item"><div class="stat-num">Home</div><div class="stat-label">Delivery Line</div></div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header">
+    <div class="section-tag">What We Sell</div>
+    <h2 class="section-title">Fresh Menu / விலை பட்டியல்</h2>
+    <p class="section-sub">All items freshly dressed daily. Prices may vary by market rate.</p>
+  </div>
+
+  <div class="menu-cats">
+    <button class="cat-pill active" onclick="filterMenu('all',this)">All / அனைத்தும்</button>
+    <button class="cat-pill" onclick="filterMenu('broiler',this)">Broiler / பிராய்லர்</button>
+    <button class="cat-pill" onclick="filterMenu('country',this)">Country / நாட்டுக்கோழி</button>
+    <button class="cat-pill" onclick="filterMenu('quail',this)">Quail / காடை</button>
+    <button class="cat-pill" onclick="filterMenu('eggs',this)">Eggs / முட்டை</button>
+  </div>
+
+  <div class="menu-grid" id="menu-grid"></div>
+</section>
+
+<!-- ORDER -->
+<section id="order">
+  <div class="section-header">
+    <div class="section-tag">Takeaway Order</div>
+    <h2 class="section-title">Place Your Order</h2>
+    <p class="section-sub">Ready in 15–20 mins. We'll call to confirm.</p>
+  </div>
+
+  <div class="order-layout">
+    <div class="order-card">
+      <h3>🛒 Your Cart</h3>
+      <div id="cart-body"><div class="cart-empty">Add items from the menu above</div></div>
+      <div id="cart-total" style="display:none" class="cart-total">
+        <span>Total</span><span id="total-amt">₹0</span>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <h3>📋 Your Details</h3>
+      <div class="form-two">
+        <div class="form-group"><label>Name</label><input type="text" id="cname" placeholder="Your name"></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="cphone" placeholder="98XXXXXXXX"></div>
+      </div>
+      <div class="form-group">
+        <label>Pickup Time</label>
+        <select id="ctime">
+          <option>As soon as possible (~20 min)</option>
+          <option>In 30 minutes</option>
+          <option>In 1 hour</option>
+          <option>Tomorrow morning</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Special Instructions (optional)</label>
+        <textarea id="cnote" placeholder="e.g. curry cut, less fat, whole dressed…"></textarea>
+      </div>
+      <button class="submit-btn" onclick="placeOrder()">Confirm Order →</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRE-BOOKING -->
+<section id="prebooking">
+  <div class="section-header">
+    <div class="section-tag">Functions & Events</div>
+    <h2 class="section-title">Pre-Book for Your Event</h2>
+    <p class="section-sub">Order in advance for weddings, functions & bulk needs. Book 2–7 days ahead.</p>
+  </div>
+
+  <div class="prebook-layout">
+    <!-- Left info column -->
+    <div class="prebook-info">
+      <div class="prebook-highlight">
+        <h3>🎉 Why pre-book?</h3>
+        <p>Guarantee fresh stock for your event. We prepare your exact quantity in advance — no shortage, no last-minute rush. Minimum 5 kg for pre-booking. 50% advance payment on confirmation.</p>
+      </div>
+      <div class="event-types">
+        <div class="event-pill">
+          <div class="event-pill-icon">💒</div>
+          <div class="event-pill-name">Weddings</div>
+          <div class="event-pill-sub">திருமணம்</div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-icon">🏠</div>
+          <div class="event-pill-name">House Functions</div>
+          <div class="event-pill-sub">வீட்டு விழா</div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-icon">🕌</div>
+          <div class="event-pill-name">Temple Events</div>
+          <div class="event-pill-sub">கோயில் விழா</div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-icon">🎂</div>
+          <div class="event-pill-name">Birthdays & Parties</div>
+          <div class="event-pill-sub">கொண்டாட்டங்கள்</div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-icon">🏢</div>
+          <div class="event-pill-name">Corporate Orders</div>
+          <div class="event-pill-sub">அலுவலக விழா</div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-icon">🍽️</div>
+          <div class="event-pill-name">Catering Bulk</div>
+          <div class="event-pill-sub">கேட்டரிங்</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right booking form -->
+    <div class="prebook-card">
+      <h3>📅 Book Your Order</h3>
+
+      <div class="form-two">
+        <div class="form-group"><label>Your Name</label><input type="text" id="pb-name" placeholder="Full name"></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" id="pb-phone" placeholder="98XXXXXXXX"></div>
+      </div>
+
+      <div class="form-two">
+        <div class="form-group">
+          <label>Event Date</label>
+          <input type="date" id="pb-date" min="">
+        </div>
+        <div class="form-group">
+          <label>Event Type</label>
+          <select id="pb-event">
+            <option value="">Select event</option>
+            <option>Wedding / திருமணம்</option>
+            <option>House Function / வீட்டு விழா</option>
+            <option>Temple Event / கோயில் விழா</option>
+            <option>Birthday / Party</option>
+            <option>Corporate / Office</option>
+            <option>Catering / கேட்டரிங்</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Delivery / Pickup</label>
+        <select id="pb-delivery">
+          <option>Shop pickup — Velankanni</option>
+          <option>Home delivery (within area)</option>
+          <option>Wholesale delivery route</option>
+        </select>
+      </div>
+
+      <p style="font-size:0.82rem;color:#666;margin-bottom:8px;font-weight:500;">Quantity needed (kg / pieces):</p>
+      <div class="prebook-items" id="pb-items">
+        <!-- rendered by JS -->
+      </div>
+
+      <div class="prebook-summary" id="pb-summary">Select quantities above to see your order summary.</div>
+
+      <div class="form-group">
+        <label>Additional Notes</label>
+        <textarea id="pb-note" placeholder="e.g. curry cut for all, deliver by 7 AM, need 50 full birds…"></textarea>
+      </div>
+
+      <button class="prebook-submit" onclick="submitPrebook()">Confirm Pre-Booking →</button>
+      <p class="advance-note">We will call within 2 hours to confirm & arrange advance payment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHOLESALE -->
+<section id="wholesale">
+  <div class="section-header">
+    <div class="section-tag">Wholesale & Delivery</div>
+    <h2 class="section-title">Bulk Orders Welcome</h2>
+    <p class="section-sub">We supply wholesale across Nagapattinam district</p>
+  </div>
+
+  <div class="delivery-grid">
+    <div class="delivery-card">
+      <div class="delivery-card-title">Vedaranyam</div>
+      <div class="delivery-card-sub">வேதாரண்யம் — Wholesale supply daily</div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-card-title">Muthupettai</div>
+      <div class="delivery-card-sub">முத்துப்பேட்டை — Wholesale supply daily</div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-card-title">Thiruthuraipoondi</div>
+      <div class="delivery-card-sub">திருத்துறைப்பூண்டி — Wholesale + Delivery</div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-card-title">Nagapattinam</div>
+      <div class="delivery-card-sub">நாகப்பட்டினம் — Delivery Line</div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-card-title">Karaikal</div>
+      <div class="delivery-card-sub">காரைக்கால் — Delivery Line</div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-card-title">Thittacheri</div>
+      <div class="delivery-card-sub">திட்டச்சேரி — Delivery Line</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:2rem;">
+    <p style="color:#9FE1CB; font-size:0.85rem; margin-bottom:0.7rem;">Branches / கிளைகள்</p>
+    <div class="branches-row">
+      <span class="branch-pill">Thirupoondi · திருப்பூண்டி</span>
+      <span class="branch-pill">Velankkanni · வேளாங்கண்ணி</span>
+      <span class="branch-pill">Thiruthuraipoondi · திருத்துறைப்பூண்டி (New)</span>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="section-header">
+    <div class="section-tag">Find Us</div>
+    <h2 class="section-title">Shop Information</h2>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-icon">📞</div>
+      <div class="info-label">Phone / Cell</div>
+      <div class="info-value">
+        <a href="tel:334479905">9894675470</a><br>
+        <a href="tel:338037213">6380372132</a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🕐</div>
+      <div class="info-label">Hours</div>
+      <div class="info-value">Mon – Sun<br>6:00 AM – 6:00 PM</div>
+      <div class="open-tag">Open Now</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📍</div>
+      <div class="info-label">Main Branch</div>
+      <div class="info-value">TP Broilers<br>Nagapattinam District<br>Tamil Nadu</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🚚</div>
+      <div class="info-label">Delivery</div>
+      <div class="info-value">Nagapattinam · Karaikal<br>Thittacheri<br>+ Wholesale areas</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TP Broilers</div>
+  <div class="footer-tamil">பிராய்லர்ஸ் &amp; காடை — நாட்டுக்கோழி — முட்டை</div>
+  <div class="footer-sub" style="margin-top:8px">Nagapattinam District · Tamil Nadu · Fresh Daily</div>
+</footer>
+
+<!-- ADMIN FAB -->
+<button class="admin-fab" onclick="openAdmin()">🔒 Admin</button>
+
+<!-- ADMIN MODAL -->
+<div class="admin-overlay" id="admin-overlay" onclick="overlayClick(event)">
+  <div class="admin-modal" id="admin-modal">
+    <div class="admin-header">
+      <div class="admin-title" id="admin-modal-title">🔐 Admin Login</div>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <!-- Login screen -->
+    <div id="admin-login-screen" class="admin-login">
+      <p>Enter the admin password to update today's prices.</p>
+      <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="admin-login-btn" onclick="doLogin()">Login →</button>
+      <p class="admin-err" id="admin-err">Incorrect password. Try again.</p>
+    </div>
+
+    <!-- Price editor screen -->
+    <div id="admin-editor-screen" style="display:none">
+      <div class="admin-date-strip">
+        <span>📅 Today: <strong id="admin-today"></strong></span>
+        <span class="admin-last-saved" id="admin-last-saved"></span>
+      </div>
+      <div id="price-rows"></div>
+      <div class="admin-actions">
+        <button class="save-btn" onclick="savePrices()">💾 Save & Publish Prices</button>
+        <button class="reset-btn" onclick="resetPrices()">Reset</button>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DEFAULT PRICES (fallback if no saved prices) ──
+const DEFAULT_MENU = [
+  { id:1, name:"Full Broiler Chicken", tamil:"முழு பிராய்லர் கோழி", desc:"Whole dressed chicken, cleaned fresh daily", price:220, unit:"per kg", cat:"broiler", badge:"popular" },
+  { id:2, name:"Curry Cut (Broiler)", tamil:"கறி வெட்டு — பிராய்லர்", desc:"Bone-in pieces, perfect for curry & gravy", price:240, unit:"per kg", cat:"broiler", badge:"popular" },
+  { id:3, name:"Boneless Broiler", tamil:"எலும்பு இல்லாமல்", desc:"Skinless boneless breast fillet", price:300, unit:"per kg", cat:"broiler", badge:"" },
+  { id:4, name:"Broiler Leg", tamil:"கால் — பிராய்லர்", desc:"Drumstick & thigh pieces", price:260, unit:"per kg", cat:"broiler", badge:"" },
+  { id:5, name:"Country Chicken (Full)", tamil:"நாட்டுக்கோழி (முழுமை)", desc:"Farm-raised country chicken, dressed fresh", price:380, unit:"per kg", cat:"country", badge:"fresh" },
+  { id:6, name:"Country Curry Cut", tamil:"நாட்டுக்கோழி கறி வெட்டு", desc:"Bone-in country chicken pieces", price:400, unit:"per kg", cat:"country", badge:"fresh" },
+  { id:7, name:"Quail (Whole) / காடை", tamil:"காடை — முழு", desc:"Fresh whole quail, cleaned & dressed", price:60, unit:"per piece", cat:"quail", badge:"popular" },
+  { id:8, name:"Quail Curry Cut", tamil:"காடை கறி வெட்டு", desc:"Quail pieces for quick curries", price:65, unit:"per piece", cat:"quail", badge:"" },
+  { id:9, name:"Broiler Eggs", tamil:"பிராய்லர் முட்டை", desc:"Farm-fresh broiler eggs, pack of 6", price:42, unit:"6 pcs", cat:"eggs", badge:"fresh" },
+  { id:10, name:"Country Chicken Eggs", tamil:"நாட்டுக்கோழி முட்டை", desc:"Desi eggs, pack of 6 — rich & nutritious", price:60, unit:"6 pcs", cat:"eggs", badge:"popular" },
+  { id:11, name:"Quail Eggs / காடை முட்டை", tamil:"காடை முட்டை", desc:"Fresh quail eggs, pack of 12", price:30, unit:"12 pcs", cat:"eggs", badge:"fresh" },
+];
+
+// ── LOAD SAVED PRICES FROM LOCALSTORAGE ──
+function loadPrices() {
+  try {
+    const saved = localStorage.getItem('tp_prices');
+    if (!saved) return DEFAULT_MENU.map(i => ({...i}));
+    const savedPrices = JSON.parse(saved);
+    return DEFAULT_MENU.map(item => ({
+      ...item,
+      price: savedPrices[item.id] ?? item.price
+    }));
+  } catch(e) { return DEFAULT_MENU.map(i => ({...i})); }
+}
+
+let MENU_DATA = loadPrices();
+const cart = {};
+let curCat = 'all';
+
+function badgeHtml(b) {
+  if (!b) return '';
+  const m = { popular: ['badge-popular','★ Popular'], fresh: ['badge-fresh','Fresh'], wholesale: ['badge-wholesale','Wholesale'] };
+  const [cls,lbl] = m[b] || ['',''];
+  return `<span class="menu-badge ${cls}">${lbl}</span>`;
+}
+
+// show "Today's Rates" badge if prices were updated today
+function priceUpdatedToday() {
+  try {
+    const meta = localStorage.getItem('tp_prices_meta');
+    if (!meta) return false;
+    const { date } = JSON.parse(meta);
+    return date === new Date().toDateString();
+  } catch(e) { return false; }
+}
+
+function renderMenu() {
+  const items = curCat === 'all' ? MENU_DATA : MENU_DATA.filter(i => i.cat === curCat);
+  const updatedBadge = priceUpdatedToday()
+    ? `<span class="price-updated-badge">✓ Today's rate</span>` : '';
+  document.getElementById('menu-grid').innerHTML = items.map(item => `
+    <div class="menu-card">
+      <div class="menu-card-top">
+        <div>
+          <div class="menu-name">${item.name}</div>
+          <div class="menu-name-tamil">${item.tamil}</div>
+        </div>
+        ${badgeHtml(item.badge)}
+      </div>
+      <div class="menu-desc">${item.desc}</div>
+      <div class="menu-footer">
+        <div class="menu-price">₹${item.price} <small>/ ${item.unit}</small>${updatedBadge}</div>
+        <button class="add-to-order ${cart[item.id] ? 'added' : ''}" onclick="addItem(${item.id})"
+          id="btn-${item.id}">${cart[item.id] ? '✓ Added' : '+ Add'}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterMenu(cat, el) {
+  curCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderMenu();
+}
+
+function addItem(id) {
+  const item = MENU_DATA.find(i => i.id === id);
+  if (!cart[id]) cart[id] = { ...item, qty: 0 };
+  cart[id].qty++;
+  renderMenu(); renderCart();
+  toast(item.name + ' added to cart');
+}
+
+function changeQty(id, d) {
+  if (!cart[id]) return;
+  cart[id].qty += d;
+  if (cart[id].qty <= 0) delete cart[id];
+  renderMenu(); renderCart();
+}
+
+function renderCart() {
+  const keys = Object.keys(cart);
+  const body = document.getElementById('cart-body');
+  const totEl = document.getElementById('cart-total');
+  if (!keys.length) {
+    body.innerHTML = '<div class="cart-empty">Add items from the menu above</div>';
+    totEl.style.display = 'none'; return;
+  }
+  let total = 0;
+  body.innerHTML = keys.map(k => {
+    const i = cart[k]; total += i.price * i.qty;
+    return `<div class="cart-item">
+      <span class="cart-item-name">${i.name}</span>
+      <div class="cart-qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(${k},-1)">−</button>
+        <span style="font-size:0.9rem;min-width:16px;text-align:center">${i.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${k},+1)">+</button>
+        <span class="cart-item-price" style="margin-left:6px">₹${i.price * i.qty}</span>
+      </div>
+    </div>`;
+  }).join('');
+  totEl.style.display = 'flex';
+  document.getElementById('total-amt').textContent = '₹' + total;
+}
+
+function placeOrder() {
+  const name = document.getElementById('cname').value.trim();
+  const phone = document.getElementById('cphone').value.trim();
+  if (!Object.keys(cart).length) { toast('Please add items first!'); return; }
+  if (!name || !phone) { toast('Please enter name & phone'); return; }
+  Object.keys(cart).forEach(k => delete cart[k]);
+  renderMenu(); renderCart();
+  document.getElementById('cname').value = '';
+  document.getElementById('cphone').value = '';
+  document.getElementById('cnote').value = '';
+  toast('✓ Order confirmed! We will call you shortly.');
+}
+
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ── ADMIN PANEL ──
+const ADMIN_PASSWORD = 'tp@2025';  // ← Change this password!
+let adminLoggedIn = false;
+
+function openAdmin() {
+  document.getElementById('admin-overlay').classList.add('open');
+  if (!adminLoggedIn) {
+    showLoginScreen();
+  } else {
+    showEditorScreen();
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-pw').value = '';
+  document.getElementById('admin-err').style.display = 'none';
+}
+
+function overlayClick(e) {
+  if (e.target === document.getElementById('admin-overlay')) closeAdmin();
+}
+
+function showLoginScreen() {
+  document.getElementById('admin-login-screen').style.display = 'block';
+  document.getElementById('admin-editor-screen').style.display = 'none';
+  document.getElementById('admin-modal-title').textContent = '🔐 Admin Login';
+  setTimeout(() => document.getElementById('admin-pw').focus(), 100);
+}
+
+function showEditorScreen() {
+  document.getElementById('admin-login-screen').style.display = 'none';
+  document.getElementById('admin-editor-screen').style.display = 'block';
+  document.getElementById('admin-modal-title').textContent = '✏️ Update Today\'s Prices';
+  document.getElementById('admin-today').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  const meta = (() => { try { return JSON.parse(localStorage.getItem('tp_prices_meta')||'{}'); } catch(e){return {};} })();
+  document.getElementById('admin-last-saved').textContent = meta.time ? 'Last saved: ' + meta.time : 'Not updated today';
+  renderPriceRows();
+}
+
+function doLogin() {
+  const pw = document.getElementById('admin-pw').value;
+  if (pw === ADMIN_PASSWORD) {
+    adminLoggedIn = true;
+    document.getElementById('admin-err').style.display = 'none';
+    showEditorScreen();
+  } else {
+    document.getElementById('admin-err').style.display = 'block';
+    document.getElementById('admin-pw').value = '';
+    document.getElementById('admin-pw').focus();
+  }
+}
+
+function doLogout() {
+  adminLoggedIn = false;
+  closeAdmin();
+}
+
+function renderPriceRows() {
+  document.getElementById('price-rows').innerHTML = MENU_DATA.map(item => `
+    <div class="price-row">
+      <div class="price-row-info">
+        <div class="price-row-name">${item.name}</div>
+        <div class="price-row-tamil">${item.tamil} · per ${item.unit}</div>
+      </div>
+      <div class="price-input-wrap">
+        <span>₹</span>
+        <input type="number" class="price-input" id="pi-${item.id}"
+          value="${item.price}" min="1" max="9999" step="1"
+          oninput="markChanged(this, ${item.price})">
+      </div>
+    </div>
+  `).join('');
+}
+
+function markChanged(el, original) {
+  el.classList.toggle('changed', parseInt(el.value) !== original);
+}
+
+function savePrices() {
+  const newPrices = {};
+  let hasChange = false;
+  MENU_DATA.forEach(item => {
+    const inp = document.getElementById('pi-' + item.id);
+    const val = parseInt(inp.value);
+    if (!val || val < 1) { toast('Price for ' + item.name + ' is invalid!'); return; }
+    newPrices[item.id] = val;
+    if (val !== item.price) hasChange = true;
+  });
+  if (Object.keys(newPrices).length !== MENU_DATA.length) return;
+  localStorage.setItem('tp_prices', JSON.stringify(newPrices));
+  const now = new Date();
+  localStorage.setItem('tp_prices_meta', JSON.stringify({
+    date: now.toDateString(),
+    time: now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})
+  }));
+  MENU_DATA = loadPrices();
+  renderMenu();
+  document.getElementById('admin-last-saved').textContent = 'Last saved: ' + now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  renderPriceRows();
+  closeAdmin();
+  toast('✅ Prices updated successfully! Menu is now live.');
+}
+
+function resetPrices() {
+  if (!confirm('Reset all prices to default values?')) return;
+  localStorage.removeItem('tp_prices');
+  localStorage.removeItem('tp_prices_meta');
+  MENU_DATA = loadPrices();
+  renderMenu(); renderCart();
+  renderPriceRows();
+  toast('Prices reset to defaults.');
+}
+
+// ── ANIMATIONS ──
+const grassEl = document.getElementById('grass');
+for (let i = 0; i < 60; i++) {
+  const b = document.createElement('div');
+  b.className = 'blade';
+  const h = 30 + Math.random() * 90;
+  b.style.cssText = `left:${(i/60)*100+Math.random()*1.5}%;height:${h}px;
+    opacity:${0.4+Math.random()*0.6};
+    animation-delay:${Math.random()*3}s;
+    animation-duration:${2+Math.random()*2}s;
+    background:hsl(${100+Math.random()*30},${50+Math.random()*30}%,${25+Math.random()*20}%)`;
+  grassEl.appendChild(b);
+}
+
+const feathersEl = document.getElementById('feathers');
+for (let i = 0; i < 12; i++) {
+  const f = document.createElement('div');
+  f.className = 'feather';
+  f.style.cssText = `left:${Math.random()*100}%;
+    bottom:${Math.random()*30}%;
+    animation-delay:${Math.random()*8}s;
+    animation-duration:${6+Math.random()*6}s;
+    width:${5+Math.random()*6}px;
+    height:${16+Math.random()*12}px;
+    transform:rotate(${Math.random()*360}deg)`;
+  feathersEl.appendChild(f);
+}
+
+const stats = document.querySelectorAll('.stat-item');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if (e.isIntersecting) e.target.style.animationDelay = i*0.1+'s';
+  });
+},{threshold:0.3});
+stats.forEach(s => obs.observe(s));
+
+// ── PRE-BOOKING ──
+const PB_ITEMS = [
+  { id:'pb1', name:'Broiler Chicken', tamil:'பிராய்லர்', unit:'kg' },
+  { id:'pb2', name:'Country Chicken', tamil:'நாட்டுக்கோழி', unit:'kg' },
+  { id:'pb3', name:'Quail (Whole)', tamil:'காடை', unit:'pieces' },
+  { id:'pb4', name:'Broiler Eggs', tamil:'பிராய்லர் முட்டை', unit:'dozens' },
+  { id:'pb5', name:'Country Eggs', tamil:'நாட்டு முட்டை', unit:'dozens' },
+];
+const pbQty = {};
+PB_ITEMS.forEach(i => pbQty[i.id] = 0);
+
+function renderPbItems() {
+  document.getElementById('pb-items').innerHTML = PB_ITEMS.map(item => `
+    <div class="prebook-item-row">
+      <div class="prebook-item-name">
+        ${item.name} <span style="font-size:0.75rem;color:#888;font-family:'Noto Sans Tamil',sans-serif">${item.tamil}</span>
+      </div>
+      <div class="prebook-qty-ctrl">
+        <button class="prebook-qty-btn" onclick="pbChange('${item.id}',-1)">−</button>
+        <span style="font-size:0.9rem;min-width:20px;text-align:center">${pbQty[item.id]}</span>
+        <button class="prebook-qty-btn" onclick="pbChange('${item.id}',+1)">+</button>
+        <span class="prebook-item-unit">${item.unit}</span>
+      </div>
+    </div>
+  `).join('');
+  renderPbSummary();
+}
+
+function pbChange(id, d) {
+  pbQty[id] = Math.max(0, pbQty[id] + d);
+  renderPbItems();
+}
+
+function renderPbSummary() {
+  const lines = PB_ITEMS.filter(i => pbQty[i.id] > 0)
+    .map(i => `${i.name}: ${pbQty[i.id]} ${i.unit}`);
+  const el = document.getElementById('pb-summary');
+  el.textContent = lines.length
+    ? '📋 ' + lines.join('  ·  ')
+    : 'Select quantities above to see your order summary.';
+}
+
+function submitPrebook() {
+  const name  = document.getElementById('pb-name').value.trim();
+  const phone = document.getElementById('pb-phone').value.trim();
+  const date  = document.getElementById('pb-date').value;
+  const event = document.getElementById('pb-event').value;
+  const hasQty = PB_ITEMS.some(i => pbQty[i.id] > 0);
+  if (!name || !phone) { toast('Please enter your name & phone'); return; }
+  if (!date)  { toast('Please select the event date'); return; }
+  if (!event) { toast('Please select an event type'); return; }
+  if (!hasQty){ toast('Please enter at least one quantity'); return; }
+  PB_ITEMS.forEach(i => pbQty[i.id] = 0);
+  renderPbItems();
+  ['pb-name','pb-phone','pb-note'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('pb-date').value = '';
+  document.getElementById('pb-event').value = '';
+  toast('✓ Pre-booking received! We\'ll call you within 2 hours.');
+}
+
+const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+document.getElementById('pb-date').min = tomorrow.toISOString().split('T')[0];
+
+renderMenu(); renderCart(); renderPbItems();
+</script>
+</body>
+</html>
